@@ -1,101 +1,35 @@
-import Image from "next/image";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="bg-white p-4 w-screen h-screen flex justify-start items-center flex-col">
+      <div>
+        <h1 className="text-xl font-semibold text-black flex justify-center items-center flex-row">
+          <FaArrowLeft className="mr-2 cursor-pointer" />
+          Friday, February 28, 2025
+          <FaArrowRight className="ml-2 cursor-pointer" />
+        </h1>
+      </div>
+      <div className="w-full flex justify-center items-start flex-col">
+        <h2 className="text-black font-semibold p-4">Today's Meetings</h2>
+        <div className="w-full flex justify-start items-center flex-col md:flex-row">
+          <div className="w-[20rem] h-auto bg-green-200 p-4 rounded-lg ml-4 mb-4 md:mb-0">
+            <h2 className="text-black font-semibold mb-2">Faiba 4G Meeting</h2>
+            <p className="text-black mb-2">8:00 AM - 9:00 AM</p>
+            <p className="text-black">4th Floor - B/Room 1</p>
+          </div>
+          <div className="w-[20rem] h-auto bg-blue-200 p-4 rounded-lg ml-4 mb-4 md:mb-0">
+            <h2 className="text-black font-semibold mb-2">AdGroup Limited Meeting</h2>
+            <p className="text-black mb-2">10:00 AM - 11:00 AM</p>
+            <p className="text-black">4th Floor - B/Room 8</p>
+          </div>
+          <div className="w-[20rem] h-auto bg-yellow-200 p-4 rounded-lg ml-4 mb-4 md:mb-0">
+            <h2 className="text-black font-semibold mb-2">4G Support Meeting</h2>
+            <p className="text-black mb-2">2:00 PM - 3:00 PM</p>
+            <p className="text-black">4th Floor - B/Room 2</p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
