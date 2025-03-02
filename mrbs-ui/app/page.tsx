@@ -1,20 +1,21 @@
-import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export default function Page() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-md">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center" >
           <div className="flex flex-col items-center space-x-4">
             <h1 className="font-semibold tracking-tight">AdGroup Limited</h1>
             <h2 className="font-regular opacity-90">Meeting Room Booking System</h2>
           </div>
           <div className="flex items-center gap-4" >
-            <Button variant="ghost" className="text-white hover:bg-blue-500 hover:text-white" >Help</Button>
+            <Button variant="ghost" className="text-white hover:bg-blue-600 hover:text-white" >Help</Button>
             <Button className="bg-white text-blue-600 hover:bg-blue-50" >Login</Button>
           </div>
         </div>
@@ -52,8 +53,12 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
               <div className="h-2 bg-emerald-400"></div>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 flex-row justify-between">
                 <CardTitle className="text-lg font-semibold text-slate-800">Faiba 4G Meeting</CardTitle>
+                <Badge variant='secondary' className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200" >
+                  <CheckCircle className="h-4 w-4 mr-2 text-emerald-500" />
+                  Completed
+                </Badge>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center text-sm text-slate-600 mb-2">
@@ -73,8 +78,12 @@ export default function Page() {
 
             <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
               <div className="h-2 bg-yellow-400"></div>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 flex-row justify-between">
                 <CardTitle className="text-lg font-semibold text-slate-800">Board Meeting</CardTitle>
+                <Badge variant='secondary' className="bg-yellow-100 text-yellow-700 hover:bg-yellow-200" >
+                  
+                  Inprogress
+                </Badge>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center text-sm text-slate-600 mb-2">
@@ -94,8 +103,12 @@ export default function Page() {
 
             <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
               <div className="h-2 bg-red-400"></div>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 flex-row justify-between">
                 <CardTitle className="text-lg font-semibold text-slate-800">Team Meeting</CardTitle>
+                <Badge variant='secondary' className="bg-red-100 text-red-700 hover:bg-red-200" >
+                  <Clock className="h-4 w-4 mr-2 text-red-500" />
+                  2 Hours Left
+                </Badge>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center text-sm text-slate-600 mb-2">
@@ -115,8 +128,12 @@ export default function Page() {
 
             <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
               <div className="h-2 bg-blue-400"></div>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 flex-row justify-between">
                 <CardTitle className="text-lg font-semibold text-slate-800">Project Meeting</CardTitle>
+                <Badge variant='secondary' className="bg-blue-100 text-blue-700 hover:bg-blue-200" >
+                  <Clock className="h-4 w-4 mr-2 text-blue-500" />
+                  4 Hours Left
+                </Badge>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center text-sm text-slate-600 mb-2">
