@@ -18,6 +18,21 @@ export default function Page() {
           </div>
         </div>
       </header>
+
+      {/* Main */}
+      <main className="flex-1 container mx-auto px-6 py-8" >
+        {/* Date Navigation */}
+        <Card className="mb-8 border-none shadow-sm bg-white/80 backdrop-blur-sm" >
+          <CardContent className="p-4" >
+            <div className="flex justify-between items-center">
+              <Button variant="outline" size="icon" className="rounded-full h-10 w-10 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+              
+            </div>
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }
