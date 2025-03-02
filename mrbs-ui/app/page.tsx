@@ -70,6 +70,69 @@ export default function Page() {
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
+              <div className="h-2 bg-yellow-400"></div>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-semibold text-slate-800">Board Meeting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Clock className="h-4 w-4 mr-2 text-yellow-500" />
+                  <span>10:00 AM - 12:00 PM</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <MapPin className="h-4 w-4 mr-2 text-yellow-500" />
+                  <span>4th Floor - B/R 2</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Users className="h-4 w-4 mr-2 text-yellow-500" />
+                  <span>10 Attendees</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
+              <div className="h-2 bg-red-400"></div>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-semibold text-slate-800">Team Meeting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Clock className="h-4 w-4 mr-2 text-red-500" />
+                  <span>2:00 PM - 4:00 PM</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <MapPin className="h-4 w-4 mr-2 text-red-500" />
+                  <span>4th Floor - B/R 3</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Users className="h-4 w-4 mr-2 text-red-500" />
+                  <span>8 Attendees</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
+              <div className="h-2 bg-blue-400"></div>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-semibold text-slate-800">Project Meeting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Clock className="h-4 w-4 mr-2 text-blue-500" />
+                  <span>4:00 PM - 6:00 PM</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <MapPin className="h-4 w-4 mr-2 text-blue-500" />
+                  <span>4th Floor - B/R 4</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600 mb-2">
+                  <Users className="h-4 w-4 mr-2 text-blue-500" />
+                  <span>6 Attendees</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
