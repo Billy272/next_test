@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -81,7 +81,7 @@ export default function Page() {
               <CardHeader className="pb-2 flex-row justify-between">
                 <CardTitle className="text-lg font-semibold text-slate-800">Board Meeting</CardTitle>
                 <Badge variant='secondary' className="bg-yellow-100 text-yellow-700 hover:bg-yellow-200" >
-                  
+                  <Loader className="h-4 w-4 mr-2 text-yellow-500" />
                   Inprogress
                 </Badge>
               </CardHeader>
