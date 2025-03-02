@@ -135,6 +135,20 @@ export default function Page() {
             </Card>
           </div>
         </div>
+        {/* Quick Actions */}
+        <Card className="border-none shadow-sm bg-white/80 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-slate-800">Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-wrap gap-3" >
+            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+              View All Rooms
+            </Button>
+            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+              Room Availability
+            </Button>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
