@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Page() {
   return (
