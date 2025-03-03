@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,8 +10,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
+const colors = ["bg-emerald-400", "bg-yellow-400", "bg-red-400", "bg-blue-400", "bg-indigo-400", "bg-purple-400", "bg-pink-400"];
+const statusColors = ["emerald", "yellow", "red", "blue", "indigo", "purple", "pink"];
+
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [meetings, setMeetings] = useState([]);
+
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      const response = await fetch(`https://rooms.adtel.co.ke/api/meetings?date=${selectedDate.toISOString()}`);
+      const data = await response.json();
+      setMeetings(data);
+    };
+
+    fetchMeetings();
+  }, [selectedDate]);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date ?? new Date());
@@ -79,105 +93,34 @@ export default function Page() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
-              <div className="h-2 bg-emerald-400"></div>
-              <CardHeader className="pb-2 flex-row justify-between">
-                <CardTitle className="text-lg font-semibold text-slate-800">Faiba 4G Meeting</CardTitle>
-                <Badge variant='secondary' className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200" >
-                  <CheckCircle className="h-4 w-4 mr-2 text-emerald-500" />
-                  Completed
-                </Badge>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Clock className="h-4 w-4 mr-2 text-emerald-500" />
-                  <span>8:00 AM - 10:00 AM</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2 text-emerald-500" />
-                  <span>4th Floor - B/R 1</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Users className="h-4 w-4 mr-2 text-emerald-500" />
-                  <span>5 Attendees</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
-              <div className="h-2 bg-yellow-400"></div>
-              <CardHeader className="pb-2 flex-row justify-between">
-                <CardTitle className="text-lg font-semibold text-slate-800">Board Meeting</CardTitle>
-                <Badge variant='secondary' className="bg-yellow-100 text-yellow-700 hover:bg-yellow-200" >
-                  <Loader className="h-4 w-4 mr-2 text-yellow-500" />
-                  Inprogress
-                </Badge>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Clock className="h-4 w-4 mr-2 text-yellow-500" />
-                  <span>10:00 AM - 12:00 PM</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2 text-yellow-500" />
-                  <span>4th Floor - B/R 2</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Users className="h-4 w-4 mr-2 text-yellow-500" />
-                  <span>10 Attendees</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
-              <div className="h-2 bg-red-400"></div>
-              <CardHeader className="pb-2 flex-row justify-between">
-                <CardTitle className="text-lg font-semibold text-slate-800">Team Meeting</CardTitle>
-                <Badge variant='secondary' className="bg-red-100 text-red-700 hover:bg-red-200" >
-                  <Clock className="h-4 w-4 mr-2 text-red-500" />
-                  2 Hours Left
-                </Badge>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Clock className="h-4 w-4 mr-2 text-red-500" />
-                  <span>2:00 PM - 4:00 PM</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2 text-red-500" />
-                  <span>4th Floor - B/R 3</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Users className="h-4 w-4 mr-2 text-red-500" />
-                  <span>8 Attendees</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white" >
-              <div className="h-2 bg-blue-400"></div>
-              <CardHeader className="pb-2 flex-row justify-between">
-                <CardTitle className="text-lg font-semibold text-slate-800">Project Meeting</CardTitle>
-                <Badge variant='secondary' className="bg-blue-100 text-blue-700 hover:bg-blue-200" >
-                  <Clock className="h-4 w-4 mr-2 text-blue-500" />
-                  4 Hours Left
-                </Badge>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Clock className="h-4 w-4 mr-2 text-blue-500" />
-                  <span>4:00 PM - 6:00 PM</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2 text-blue-500" />
-                  <span>4th Floor - B/R 4</span>
-                </div>
-                <div className="flex items-center text-sm text-slate-600 mb-2">
-                  <Users className="h-4 w-4 mr-2 text-blue-500" />
-                  <span>6 Attendees</span>
-                </div>
-              </CardContent>
-            </Card>
+            {meetings.map((meeting, index) => (
+              <Card key={meeting.id} className={`overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white`} >
+                <div className={`h-2 ${colors[index % colors.length]}`}></div>
+                <CardHeader className="pb-2 flex-row justify-between">
+                  <CardTitle className="text-lg font-semibold text-slate-800">{meeting.description}</CardTitle>
+                  <Badge variant='secondary' className={`bg-${statusColors[index % statusColors.length]}-100 text-${statusColors[index % statusColors.length]}-700 hover:bg-${statusColors[index % statusColors.length]}-200`} >
+                    {meeting.status === 'completed' && <CheckCircle className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
+                    {meeting.status === 'inprogress' && <Loader className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
+                    {meeting.status === 'pending' && <Clock className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
+                    {meeting.status}
+                  </Badge>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center text-sm text-slate-600 mb-2">
+                    <Clock className="h-4 w-4 mr-2 text-emerald-500" />
+                    <span>{meeting.start_time} - {meeting.end_time}</span>
+                  </div>
+                  <div className="flex items-center text-sm text-slate-600 mb-2">
+                    <MapPin className="h-4 w-4 mr-2 text-emerald-500" />
+                    <span>{meeting.area_id} - {meeting.room_id}</span>
+                  </div>
+                  <div className="flex items-center text-sm text-slate-600 mb-2">
+                    <Users className="h-4 w-4 mr-2 text-emerald-500" />
+                    <span>{meeting.capacity} Attendees</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
         {/* Quick Actions */}
