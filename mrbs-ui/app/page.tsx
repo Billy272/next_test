@@ -1,12 +1,34 @@
 "use client";
 
+import { SetStateAction, useState } from "react";
 import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 export default function Page() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date ?? new Date());
+  }
+
+  const handlePrevDay = () => {
+    setSelectedDate((prevDate) => {
+      return new Date(prevDate.setDate(prevDate.getDate() - 1));
+    });
+  }
+
+  const handleNextDay = () => {
+    setSelectedDate((prevDate) => {
+      return new Date(prevDate.setDate(prevDate.getDate() + 1));
+    });
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
@@ -29,14 +51,18 @@ export default function Page() {
         <Card className="mb-8 border-none shadow-sm bg-white/80 backdrop-blur-sm" >
           <CardContent className="p-4" >
             <div className="flex justify-between items-center">
-              <Button variant="outline" size="icon" className="rounded-full h-10 w-10 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+              <Button variant="outline" size="icon" className="rounded-full h-10 w-10 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700" onClick={handlePrevDay}>
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div className="flex items-center gap-3">
                 <Calendar className="h-5 w-5 text-blue-600" />
-                <h2 className="text-xl font-semibold text-slate-800">Monday, March 3, 2025</h2>
+                <DatePicker 
+                  selected={selectedDate}
+                  onChange={handleDateChange}
+                  customInput={<h2 className="text-xl font-semibold text-slate-800 cursor-pointer">{format(selectedDate, "EEEE, MMMM d, yyyy")}</h2> }
+                />
               </div>
-              <Button variant="outline" size="icon" className="rounded-full h-10 w-10 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+              <Button variant="outline" size="icon" className="rounded-full h-10 w-10 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700" onClick={handleNextDay}>
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
