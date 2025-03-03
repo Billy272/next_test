@@ -11,7 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format, isBefore, isAfter, isWithinInterval } from "date-fns";
 
 const colors = ["bg-emerald-400", "bg-yellow-400", "bg-red-400", "bg-blue-400", "bg-indigo-400", "bg-purple-400", "bg-pink-400"];
-const statusColors = ["emerald", "yellow", "red", "blue", "indigo", "purple", "pink"];
 
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -71,11 +70,26 @@ export default function Page() {
   }
 
   const statusColorMap = {
-    'completed': 'emerald',
-    'inprogress': 'yellow',
-    'upcoming': 'blue',
+    completed: {
+      bg: 'bg-emerald-100',
+      text: 'text-emerald-700',
+      icon: 'text-emerald-500',
+      hover: 'hover:bg-emerald-200'
+    },
+    inprogress: {
+      bg: 'bg-yellow-100',
+      text: 'text-yellow-700',
+      icon: 'text-yellow-500',
+      hover: 'hover:bg-yellow-200'
+    },
+    upcoming: {
+      bg: 'bg-blue-100',
+      text: 'text-blue-700',
+      icon: 'text-blue-500',
+      hover: 'hover:bg-blue-200'
+    }
   }
-
+  
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
@@ -133,24 +147,24 @@ export default function Page() {
                   <div className={`h-2 ${colors[index % colors.length]}`}></div>
                   <CardHeader className="pb-2 flex-row justify-between">
                     <CardTitle className="text-lg font-semibold text-slate-800">{meeting.name}</CardTitle>
-                    <Badge variant='secondary' className={`bg-${statusColorMap[status]}-100 text-${statusColorMap[status]}-700 hover:bg-${statusColorMap[status]}-200`} >
-                      {status === 'completed' && <CheckCircle className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
-                      {status === 'inprogress' && <Loader className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
-                      {status === 'upcoming' && <Clock className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
+                    <Badge variant='secondary' className={`${statusColorMap[status].bg} ${statusColorMap[status].text} ${statusColorMap[status].hover}`} >
+                      {status === 'completed' && <CheckCircle className={`h-4 w-4 mr-2 text-${statusColorMap[status].icon}-500`} />}
+                      {status === 'inprogress' && <Loader className={`h-4 w-4 mr-2 text-${statusColorMap[status].icon}-500`} />}
+                      {status === 'upcoming' && <Clock className={`h-4 w-4 mr-2 text-${statusColorMap[status].icon}-500`} />}
                       <span className={`text-${statusColorMap[status]}-700`}>{status}</span>
                     </Badge>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <Clock className="h-4 w-4 mr-2 text-emerald-500" />
+                      <Clock className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
                       <span>{format(new Date(Number(meeting.start_time) * 1000), "p")} - {format(new Date(Number(meeting.end_time) * 1000), "p")}</span>
                     </div>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <MapPin className="h-4 w-4 mr-2 text-emerald-500" />
+                      <MapPin className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
                       <span>{meeting.area_id}th Floor - {meeting.room_id}</span>
                     </div>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <Users className="h-4 w-4 mr-2 text-emerald-500" />
+                      <Users className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
                       <span>{meeting.capacity} Participants</span>
                     </div>
                   </CardContent>
