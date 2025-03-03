@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,8 +17,8 @@ export default function Page() {
             <h2 className="font-regular opacity-90">Meeting Room Booking System</h2>
           </div>
           <div className="flex items-center gap-4" >
-            <Button variant="ghost" className="text-white hover:bg-blue-600 hover:text-white" >Help</Button>
-            <Button className="bg-white text-blue-600 hover:bg-blue-50" >Login</Button>
+            <Button variant="ghost" className="text-white hover:bg-blue-600 hover:text-white" onClick={() => window.location.href = "https://rooms.adtel.co.ke/help.php"}>Help</Button>
+            <Button className="bg-white text-blue-600 hover:bg-blue-50" onClick={() => window.location.href = "https://rooms.adtel.co.ke/admin.php"} >Login</Button>
           </div>
         </div>
       </header>
