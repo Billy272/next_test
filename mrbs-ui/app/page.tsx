@@ -8,19 +8,32 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format, isBefore, isAfter, isWithinInterval } from "date-fns";
 
 const colors = ["bg-emerald-400", "bg-yellow-400", "bg-red-400", "bg-blue-400", "bg-indigo-400", "bg-purple-400", "bg-pink-400"];
 const statusColors = ["emerald", "yellow", "red", "blue", "indigo", "purple", "pink"];
 
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [meetings, setMeetings] = useState([]);
+
+  interface Meeting {
+    id: string;
+    name: string;
+    status: 'completed' | 'inprogress' | 'upcoming';
+    start_time: string;
+    end_time: string;
+    area_id: string;
+    room_id: string;
+    capacity: number;
+  }
+
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
-      const response = await fetch(`https://rooms.adtel.co.ke/api/meetings?date=${selectedDate.toISOString()}`);
-      const data = await response.json();
+      const response = await fetch(`http://localhost:5000/api/meetings?date=${format(selectedDate, "yyyy-MM-dd")}`);
+      let data = await response.json();
+      data.sort((a: Meeting, b: Meeting) => Number(a.start_time) - Number(b.start_time));
       setMeetings(data);
     };
 
@@ -41,6 +54,26 @@ export default function Page() {
     setSelectedDate((prevDate) => {
       return new Date(prevDate.setDate(prevDate.getDate() + 1));
     });
+  }
+
+  const getStatus = (startTime: number, endTime: number) => {
+    const now = new Date();
+    const start = new Date(startTime * 1000);
+    const end = new Date(endTime * 1000);
+
+    if (isBefore(end, now)) {
+      return 'completed';
+    } else if (isWithinInterval(now, { start, end })) {
+      return 'inprogress';
+    } else {
+      return 'upcoming';
+    }
+  }
+
+  const statusColorMap = {
+    'completed': 'emerald',
+    'inprogress': 'yellow',
+    'upcoming': 'blue',
   }
 
   return (
@@ -93,34 +126,37 @@ export default function Page() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {meetings.map((meeting, index) => (
-              <Card key={meeting.id} className={`overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white`} >
-                <div className={`h-2 ${colors[index % colors.length]}`}></div>
-                <CardHeader className="pb-2 flex-row justify-between">
-                  <CardTitle className="text-lg font-semibold text-slate-800">{meeting.description}</CardTitle>
-                  <Badge variant='secondary' className={`bg-${statusColors[index % statusColors.length]}-100 text-${statusColors[index % statusColors.length]}-700 hover:bg-${statusColors[index % statusColors.length]}-200`} >
-                    {meeting.status === 'completed' && <CheckCircle className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
-                    {meeting.status === 'inprogress' && <Loader className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
-                    {meeting.status === 'pending' && <Clock className={`h-4 w-4 mr-2 text-${statusColors[index % statusColors.length]}-500`} />}
-                    {meeting.status}
-                  </Badge>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center text-sm text-slate-600 mb-2">
-                    <Clock className="h-4 w-4 mr-2 text-emerald-500" />
-                    <span>{meeting.start_time} - {meeting.end_time}</span>
-                  </div>
-                  <div className="flex items-center text-sm text-slate-600 mb-2">
-                    <MapPin className="h-4 w-4 mr-2 text-emerald-500" />
-                    <span>{meeting.area_id} - {meeting.room_id}</span>
-                  </div>
-                  <div className="flex items-center text-sm text-slate-600 mb-2">
-                    <Users className="h-4 w-4 mr-2 text-emerald-500" />
-                    <span>{meeting.capacity} Attendees</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            {meetings.map((meeting, index) => {
+              const status = getStatus(Number(meeting.start_time), Number(meeting.end_time));
+              return (
+                <Card key={meeting.id} className={`overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white`} >
+                  <div className={`h-2 ${colors[index % colors.length]}`}></div>
+                  <CardHeader className="pb-2 flex-row justify-between">
+                    <CardTitle className="text-lg font-semibold text-slate-800">{meeting.name}</CardTitle>
+                    <Badge variant='secondary' className={`bg-${statusColorMap[status]}-100 text-${statusColorMap[status]}-700 hover:bg-${statusColorMap[status]}-200`} >
+                      {status === 'completed' && <CheckCircle className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
+                      {status === 'inprogress' && <Loader className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
+                      {status === 'upcoming' && <Clock className={`h-4 w-4 mr-2 text-${statusColorMap[status]}-500`} />}
+                      <span className={`text-${statusColorMap[status]}-700`}>{status}</span>
+                    </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center text-sm text-slate-600 mb-2">
+                      <Clock className="h-4 w-4 mr-2 text-emerald-500" />
+                      <span>{format(new Date(Number(meeting.start_time) * 1000), "p")} - {format(new Date(Number(meeting.end_time) * 1000), "p")}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-slate-600 mb-2">
+                      <MapPin className="h-4 w-4 mr-2 text-emerald-500" />
+                      <span>{meeting.area_id}th Floor - {meeting.room_id}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-slate-600 mb-2">
+                      <Users className="h-4 w-4 mr-2 text-emerald-500" />
+                      <span>{meeting.capacity} Participants</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            )}
           </div>
         </div>
         {/* Quick Actions */}
