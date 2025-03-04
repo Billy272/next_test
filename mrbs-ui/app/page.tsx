@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format, isBefore, isAfter, isWithinInterval } from "date-fns";
 
 const colors = ["bg-emerald-400", "bg-yellow-400", "bg-red-400", "bg-blue-400", "bg-indigo-400", "bg-purple-400", "bg-pink-400"];
+const colorMap = ["emerald", "yellow", "red", "blue", "indigo", "purple", "pink"];
 
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -156,15 +157,15 @@ export default function Page() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <Clock className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
+                      <Clock className={`h-4 w-4 mr-2 text-${colorMap[index % colorMap.length]}-500`} />
                       <span>{format(new Date(Number(meeting.start_time) * 1000), "p")} - {format(new Date(Number(meeting.end_time) * 1000), "p")}</span>
                     </div>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <MapPin className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
+                      <MapPin className={`h-4 w-4 mr-2 text-${colorMap[index % colorMap.length]}-500`} />
                       <span>{meeting.area_id}th Floor - {meeting.room_id}</span>
                     </div>
                     <div className="flex items-center text-sm text-slate-600 mb-2">
-                      <Users className={`h-4 w-4 mr-2 text-${colors[index % colors.length]}`} />
+                      <Users className={`h-4 w-4 mr-2 text-${colorMap[index % colorMap.length]}-500`} />
                       <span>{meeting.capacity} Participants</span>
                     </div>
                   </CardContent>
