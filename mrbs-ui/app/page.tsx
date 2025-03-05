@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Calendar, Clock, MapPin, Users, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format, isBefore, isAfter, isWithinInterval } from "date-fns";
+import { format, isBefore, isWithinInterval } from "date-fns";
 
 const colors = ["bg-emerald-400", "bg-yellow-400", "bg-red-400", "bg-blue-400", "bg-indigo-400", "bg-purple-400", "bg-pink-400"];
 const colorMap = ["emerald", "yellow", "red", "blue", "indigo", "purple", "pink"];
@@ -32,11 +32,16 @@ export default function Page() {
   useEffect(() => {
     const fetchMeetings = async () => {
       const response = await fetch(`http://localhost:5000/api/meetings?date=${format(selectedDate, "yyyy-MM-dd")}`);
-      let data = await response.json();
-      data.sort((a: Meeting, b: Meeting) => Number(a.start_time) - Number(b.start_time));
-      setMeetings(data);
+      const data = await response.json();
+      console.log('API Response:', data); // Log the response data
+      if (Array.isArray(data)) {
+        const sortedData = data.sort((a: Meeting, b: Meeting) => Number(a.start_time) - Number(b.start_time));
+        setMeetings(sortedData);
+      } else {
+        console.log('Expected an array but got:', data);
+      }
     };
-
+  
     fetchMeetings();
   }, [selectedDate]);
 
@@ -136,7 +141,7 @@ export default function Page() {
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-blue-600" />
-              Today's Meetings
+              Today&apos;s Meetings
             </h3>
           </div>
 
