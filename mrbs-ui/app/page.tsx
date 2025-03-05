@@ -185,10 +185,10 @@ export default function Page() {
             <CardTitle className="text-lg font-semibold text-slate-800">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-3" >
-            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700" onClick={() => window.location.href = "https://rooms.adtel.co.ke/"}>
               View All Rooms
             </Button>
-            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700">
+            <Button variant='outline' className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700" onClick={() => window.location.href = "https://rooms.adtel.co.ke/"}>
               Room Availability
             </Button>
           </CardContent>
