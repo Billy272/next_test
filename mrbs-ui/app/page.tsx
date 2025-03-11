@@ -31,7 +31,7 @@ export default function Page() {
 
   useEffect(() => {
     const fetchMeetings = async () => {
-      const response = await fetch(`http://localhost:5000/api/meetings?date=${format(selectedDate, "yyyy-MM-dd")}`);
+      const response = await fetch(`http://localhost:5050/api/meetings?date=${format(selectedDate, "yyyy-MM-dd")}`);
       const data = await response.json();
       console.log('API Response:', data); // Log the response data
       if (Array.isArray(data)) {
